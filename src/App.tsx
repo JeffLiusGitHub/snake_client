@@ -6,11 +6,11 @@ import { snakeBidType } from './type';
 import { IMessageEvent, w3cwebsocket } from 'websocket';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from './Component/ErrorBoundary';
-import Append from './Component/Helper/useAppend';
+import useAppend from './Component/Helper/useAppend';
 function App() {
 	const name = 'Jeff';
 
-	const { websocketData, setIncomingData } = Append();
+	const { websocketData, setIncomingData } = useAppend();
 	const [error, setError] = useState<boolean>(false);
 
 	const BASE_URL: string = 'ws://localhost:8080/api/updates';
