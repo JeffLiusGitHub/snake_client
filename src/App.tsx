@@ -24,7 +24,7 @@ function App() {
 		client.onmessage = (message: IMessageEvent): void => {
 			const dataFromServer = JSON.parse(message?.data.toString());
 			appendData(dataFromServer);
-			// console.log(dataFromServer);
+			console.log(dataFromServer);
 		};
 
 		client.onerror = (): void => {
@@ -33,7 +33,7 @@ function App() {
 
 		return () => client.close();
 	}, [BASE_URL, appendData]);
-	// console.log(websocketData);
+	console.log(websocketData);
 	return (
 		<ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
 			<div style={{ overflow: 'hidden' }}>
