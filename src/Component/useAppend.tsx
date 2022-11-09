@@ -6,25 +6,22 @@ const useAppend = () => {
 
 	const appendData = useCallback((incomingData: IncomingDataType): void => {
 		setWebsocketData((prevData: snakeBidType[]): snakeBidType[] => {
+			const { id, stage, bid }: IncomingDataType = incomingData!;
 			if (prevData?.length === 0) {
-				if (incomingData) {
-					const { id, stage, bid }: IncomingDataType = incomingData;
-					return [
-						{
-							id: id,
-							stage: stage,
-							highest: bid,
-							TVL: bid,
-							bidArray: [bid!],
-						},
-					];
-				}
+				return [
+					{
+						id: id,
+						stage: stage,
+						highest: bid,
+						TVL: bid,
+						bidArray: [bid],
+					},
+				];
 			} else {
 				const insertDataIndex: number = prevData?.findIndex(
 					(w: any) => w.id === incomingData?.id
 				);
 				if (insertDataIndex === -1) {
-					const { id, stage, bid }: IncomingDataType = incomingData!;
 					return [
 						...prevData,
 						{
@@ -32,13 +29,12 @@ const useAppend = () => {
 							stage: stage,
 							highest: bid,
 							TVL: bid,
-							bidArray: [bid!],
+							bidArray: [bid],
 						},
 					];
 				} else {
 					const existingSnake: snakeBidType = prevData[insertDataIndex];
 					const { id, highest, TVL, bidArray }: snakeBidType = existingSnake!;
-					const { bid, stage }: IncomingDataType = incomingData!;
 
 					switch (incomingData?.stage) {
 						case 1:
