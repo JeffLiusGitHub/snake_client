@@ -24,37 +24,37 @@ const useAppend = () => {
 			} else {
 				const existingSnake: snakeBidType = prevData[insertDataIndex];
 				const { id, highest, TVL, bidArray }: snakeBidType = existingSnake!;
-
+				const newPrevData = [...prevData];
 				switch (incomingData?.stage) {
 					case 1:
-						prevData[insertDataIndex] = {
+						newPrevData[insertDataIndex] = {
 							id: id,
 							stage: stage,
 							highest: Math.max(highest, incomingData?.bid!),
 							TVL: TVL + bid,
 							bidArray: [...bidArray, bid],
 						};
-						return [...prevData];
+						return [...newPrevData];
 
 					case 2:
-						prevData[insertDataIndex] = {
+						newPrevData[insertDataIndex] = {
 							id: id,
 							stage: stage,
 							highest: Math.max(highest, incomingData?.bid!),
 							TVL: TVL - bid,
 							bidArray: [...bidArray, bid],
 						};
-						return [...prevData];
+						return [...newPrevData];
 
 					case 3:
-						prevData[insertDataIndex] = {
+						newPrevData[insertDataIndex] = {
 							id: id,
 							stage: stage,
 							highest: Math.max(highest, incomingData?.bid!),
 							TVL: 0,
 							bidArray: [...bidArray],
 						};
-						return [...prevData];
+						return [...newPrevData];
 				}
 			}
 
