@@ -45,3 +45,32 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 # snake_client
+
+
+##Start by giving an overview of your project, including its purpose and features.
+
+This project is based on a snake bid game interact with websocket backend. Backend will send data based on current snake bid stage.
+First stage, start bidding.
+Second stage, give money back to the bidders, reducing TVL.
+Third stage, select winner and display on the screen and hid the card.
+
+
+##Next, demonstrate how the project works by showing a live demo or a video walkthrough. This will help the audience understand the functionality and user experience of your project.
+
+display phase
+
+##After the demo, discuss the technical details of your project. This can include the technologies and frameworks used, any challenges you faced, and how you solved them.
+
+In this project I have errorboundary to handle error. 
+
+Also seperate the page into header and card and put them in the Layout component. Data come from the websocket will be formated and map to the card component.
+
+I have clean up websocket function in the useeffect hook in case memory leak. 
+
+For format part I use a custom hook called useAppend. 
+
+In the card from the requirement, if card go to the stage 3, it will display a modal and a box to show the highest bid, other bids and the card name.
+
+##Finally, conclude your presentation by summarizing the key points and highlighting the value of your project.
+
+This project use websocket to display the backend data synchronously. Improvment could be using mobx. No redux because it is not suitable for data changed frequently.

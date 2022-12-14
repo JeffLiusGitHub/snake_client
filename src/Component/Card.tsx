@@ -4,6 +4,7 @@ import { snakeBidType } from '../type';
 import CustomModal from './Modal';
 
 const Card = ({ id, stage, highest, TVL, bidArray }: snakeBidType) => {
+
 	const [selected, setSelected] = useState<boolean>(false);
 	const [modalOpen, setModalOpen] = useState<boolean>(false);
 	const [cardIsVisible, setCardIsVisible] = useState<boolean>(true);
@@ -12,28 +13,30 @@ const Card = ({ id, stage, highest, TVL, bidArray }: snakeBidType) => {
 	}, [bidArray]);
 	const handleModalClose = useCallback(() => {
 		setModalOpen(false);
-	}, []);
+	}, [setModalOpen]);
 
 	const handleCardInvisible = useCallback(() => {
 		setCardIsVisible(false);
-	}, []);
+	}, [setCardIsVisible]);
+
+	const modalBidDisplay = useCallback(() => {
+		if (stage === 3) {
+			setModalOpen(true);
+			const closeModalandCard = () => {
+				setModalOpen(false);
+				setCardIsVisible(false);
+			};
+			let timeout = setTimeout(() => closeModalandCard(), 9000);
+			return () => {
+				clearTimeout(timeout);
+			};
+		}
+	}, [stage, setModalOpen, setCardIsVisible]);
 
 	useEffect(() => {
-		const modalBidDisplay = () => {
-			if (stage === 3) {
-				setModalOpen(true);
-				const closeModalandCard = () => {
-					setModalOpen(false);
-					setCardIsVisible(false);
-				};
-				let timeout = setTimeout(() => closeModalandCard(), 9000);
-				return () => {
-					clearTimeout(timeout);
-				};
-			}
-		};
 		modalBidDisplay();
-	}, [stage]);
+	}, [modalBidDisplay]);
+
 
 	const onClickHander = () => {
 		setSelected((prevSelect) => !prevSelect);
@@ -43,8 +46,8 @@ const Card = ({ id, stage, highest, TVL, bidArray }: snakeBidType) => {
 		<CardContainer onClick={onClickHander} selected={selected}>
 			<PictureContainer>
 				<p>Picture of snake here</p>
-				{/* <p>stage:{stage}</p>
-				<p style={{ overflowWrap: 'break-word' }}>{bidArray.toString()}</p> */}
+				<p>stage:{stage}</p>
+				<p style={{ overflowWrap: 'break-word' }}>{bidArray.toString()}</p>
 			</PictureContainer>
 			<DataContainer>
 				<p>Snake ID: {id}</p>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from 'react';
+import React, { useEffect, useState, useCallback, memo } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -72,10 +72,10 @@ const CustomModal = ({
 			</Typography>
 		</>
 	);
-	const closeModalandCard = () => {
+	const closeModalandCard = useCallback(() => {
 		setCardIsVisible();
 		handleModalClose();
-	};
+	}, [setCardIsVisible, handleModalClose]);
 
 	return (
 		<div>
